@@ -72,7 +72,7 @@ public class doRegister extends AsyncTask<ArrayList<String>,String,String> {
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("key",result);
                 editor.commit();
-                Intent intent = new Intent(thisContext,MainActivity.class);
+                Intent intent = new Intent(thisContext,showImages.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 thisContext.startActivity(intent);
             }else if(json instanceof JSONArray){
