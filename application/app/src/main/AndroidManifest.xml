@@ -10,7 +10,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-
+        android:theme="@style/AppTheme"
+        >
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.example.mathias.htf"
@@ -21,13 +22,16 @@
                 android:resource="@xml/file_paths"></meta-data>
         </provider>
         <activity android:name=".MainActivity">
+
+        </activity>
+        <activity android:name=".loginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".loginActivity">
+        <activity android:name=".TakePic">
 
         </activity>
     </application>
