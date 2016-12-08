@@ -82,7 +82,7 @@ public class getImagesUser extends AsyncTask<String,String,String> {
                 e.printStackTrace();
             }
 
-            Toast.makeText(thisContext,message.toString(),Toast.LENGTH_SHORT).show();
+            Toast.makeText(thisContext,message.toString(),Toast.LENGTH_LONG).show();
         }
         @Override
         protected String doInBackground(String... params) {
