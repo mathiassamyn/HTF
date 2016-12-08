@@ -18,6 +18,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -112,7 +113,7 @@ public class TakePic extends AppCompatActivity {
         Bitmap bitmap = drawable.getBitmap();
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos); //bm is the bitmap object
         byte[] b = baos.toByteArray();
 
         String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
@@ -121,10 +122,13 @@ public class TakePic extends AppCompatActivity {
         Calendar c = Calendar.getInstance();
         int seconds = c.get(Calendar.SECOND);
 
+        EditText description = (EditText) findViewById(R.id.description);
+        String name = description.getText().toString();
+
         ArrayList<String> dataList = new ArrayList<String>();
-        dataList.add("mooie dag om te progge");
+        dataList.add(name);
         dataList.add(encodedImage);
-        dataList.add(String.valueOf(seconds));
+        dataList.add("20160206-232525");
 
         uploadPic uploadClass = new uploadPic(this);
         Log.e("hhhj         ", "xxxxxxxxxxxxxxxxxxxxxxxx");

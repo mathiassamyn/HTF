@@ -1,7 +1,9 @@
 package com.example.mathias.htf;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -26,9 +28,10 @@ import java.util.ArrayList;
 
 public class uploadPic extends AsyncTask<ArrayList<String>,String,String> {
     public Context thisContext;
-
+    SharedPreferences sharedPref;
     uploadPic(Context context) {
         this.thisContext = context;
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     String convertStreamToString(java.io.InputStream is) {
@@ -43,7 +46,7 @@ public class uploadPic extends AsyncTask<ArrayList<String>,String,String> {
         Object json = null;
         Object re;
         String result;
-        try {
+        /*try {
             json = new JSONTokener(r).nextValue();
             if (json instanceof JSONObject) {
                 JSONObject jsonobj = (JSONObject) json;
@@ -57,7 +60,7 @@ public class uploadPic extends AsyncTask<ArrayList<String>,String,String> {
             }
         } catch (JSONException e) {
             e.printStackTrace();
-        }
+        }*/
 
         Toast.makeText(thisContext, r.toString(), Toast.LENGTH_SHORT).show();
     }
@@ -81,12 +84,13 @@ public class uploadPic extends AsyncTask<ArrayList<String>,String,String> {
             httpURLConnection.setDoOutput(true);
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setRequestProperty("Content-Type", "application/json");
+            httpURLConnection.setRequestProperty ("Authorization", sharedPref.getString("key","nokey"));
             httpURLConnection.connect();
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("description", param.get(0));
             jsonObject.put("base64imagedata", param.get(1));
             jsonObject.put("datetime", param.get(2));
-
+            Log.e("JSON", jsonObject.toString());
             DataOutputStream wr = new DataOutputStream(httpURLConnection.getOutputStream());
             wr.writeBytes(jsonObject.toString());
             wr.flush();
@@ -101,6 +105,7 @@ public class uploadPic extends AsyncTask<ArrayList<String>,String,String> {
 
             result = convertStreamToString(in);
             Log.e("Log token", result);
+            Log.e("status", String.valueOf(status));
 //            httpURLConnection.disconnect();
 
         } catch (MalformedURLException e) {
