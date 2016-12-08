@@ -69,7 +69,6 @@ public class loginActivity extends AppCompatActivity {
         params.add(Username);
         params.add(Password);
         login.execute(params);
-
     }
 
 
