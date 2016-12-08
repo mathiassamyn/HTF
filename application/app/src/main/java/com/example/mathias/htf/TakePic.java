@@ -124,9 +124,9 @@ public class TakePic extends AppCompatActivity {
         ArrayList<String> dataList = new ArrayList<String>();
         dataList.add("mooie dag om te progge");
         dataList.add(encodedImage);
-        dataList.add(String.valueOf(seconds));
+        dataList.add(String.valueOf(20160206) + "-" + String.valueOf(232525));
 
-        uploadPic uploadClass = new uploadPic(this);
+        uploadPic uploadClass = new uploadPic(this, dataList);
         Log.e("hhhj         ", "xxxxxxxxxxxxxxxxxxxxxxxx");
         uploadClass.execute(dataList);
     }

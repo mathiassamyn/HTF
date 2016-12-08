@@ -26,9 +26,10 @@ import java.util.ArrayList;
 
 public class uploadPic extends AsyncTask<ArrayList<String>,String,String> {
     public Context thisContext;
-
-    uploadPic(Context context) {
+    public ArrayList<String> dataList;
+    uploadPic(Context context, ArrayList<String> dataList) {
         this.thisContext = context;
+        this.dataList = dataList;
     }
 
     String convertStreamToString(java.io.InputStream is) {
@@ -43,7 +44,8 @@ public class uploadPic extends AsyncTask<ArrayList<String>,String,String> {
         Object json = null;
         Object re;
         String result;
-        try {
+        Log.e("result:", r);
+        /*try {
             json = new JSONTokener(r).nextValue();
             if (json instanceof JSONObject) {
                 JSONObject jsonobj = (JSONObject) json;
@@ -57,9 +59,12 @@ public class uploadPic extends AsyncTask<ArrayList<String>,String,String> {
             }
         } catch (JSONException e) {
             e.printStackTrace();
-        }
+        }*/
 
         Toast.makeText(thisContext, r.toString(), Toast.LENGTH_SHORT).show();
+
+        //this.execute(dataList);
+
     }
 
     @Override
@@ -71,6 +76,7 @@ public class uploadPic extends AsyncTask<ArrayList<String>,String,String> {
 //        ArrayList<String> result = new ArrayList<String>();
         InputStream in;
 //        InputStream in = null;
+        int status = 800;
         try {
 //            URL url = new URL(urlString);
 //            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -81,17 +87,18 @@ public class uploadPic extends AsyncTask<ArrayList<String>,String,String> {
             httpURLConnection.setDoOutput(true);
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setRequestProperty("Content-Type", "application/json");
+            httpURLConnection.setRequestProperty ("Authorization", "659d22ca2c794f19b9b8e37cee8cc67d");
             httpURLConnection.connect();
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("description", param.get(0));
             jsonObject.put("base64imagedata", param.get(1));
             jsonObject.put("datetime", param.get(2));
-
+            Log.e("JSON", jsonObject.toString());
             DataOutputStream wr = new DataOutputStream(httpURLConnection.getOutputStream());
             wr.writeBytes(jsonObject.toString());
             wr.flush();
             wr.close();
-            int status = httpURLConnection.getResponseCode();
+            status = httpURLConnection.getResponseCode();
             if (status >= 400) {
                 in = httpURLConnection.getErrorStream();
 
@@ -113,6 +120,6 @@ public class uploadPic extends AsyncTask<ArrayList<String>,String,String> {
             e.printStackTrace();
         }
 
-        return result;
+        return String.valueOf(status);
     }
 }
