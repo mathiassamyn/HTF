@@ -1,5 +1,6 @@
 package com.example.mathias.htf;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -50,6 +52,15 @@ public class showImages extends AppCompatActivity {
                                     int position, long id) {
                 Toast.makeText(showImages.this, "You Clicked at " +web[+ position], Toast.LENGTH_SHORT).show();
 
+            }
+        });
+
+        Button goToIntent = (Button) findViewById(R.id.gotopicintent);
+        goToIntent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(showImages.this, TakePic.class);
+                startActivity(intent);
             }
         });
 
